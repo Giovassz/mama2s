@@ -6,9 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center space-x-2">
-                        <div class="bg-orange-500 text-gray-900 font-bold text-2xl px-3 py-2 rounded">
-                            M2
-                        </div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Mama2s Gym" class="h-6 w-auto">
                         <span class="text-2xl font-bold">Mama2s</span>
                     </a>
                 </div>

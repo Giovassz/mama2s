@@ -26,7 +26,14 @@ class CheckRole
             abort(403, 'Usuario sin rol asignado');
         }
 
-        if (!in_array($user->role->slug, $roles)) {
+        // Expandir roles que vengan separados por comas (ej: "admin,recepcionista")
+        $allowedRoles = [];
+        foreach ($roles as $role) {
+            $allowedRoles = array_merge($allowedRoles, explode(',', $role));
+        }
+        $allowedRoles = array_map('trim', $allowedRoles);
+
+        if (!in_array($user->role->slug, $allowedRoles)) {
             abort(403, 'No tienes permiso para acceder a esta página');
         }
 

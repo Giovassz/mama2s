@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,9 +10,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Rutas públicas
-Route::get('/membresias', function () {
-    return view('membresias');
-})->name('membresias');
+Route::get('/membresias', [MembresiaController::class, 'showPublic'])->name('membresias');
 
 Route::get('/promociones', function () {
     return view('promociones');
@@ -41,6 +40,18 @@ Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/recepcionista', function () {
         return view('recepcionista.dashboard');
     })->name('recepcionista.dashboard');
+});
+
+// Rutas de Membresías - Solo Admin y Recepcionista pueden gestionar
+Route::middleware(['auth', 'role:admin,recepcionista'])->group(function () {
+    Route::get('/admin/membresias', [MembresiaController::class, 'index'])->name('membresias.index');
+    Route::get('/admin/membresias/create', [MembresiaController::class, 'create'])->name('membresias.create');
+    Route::post('/admin/membresias', [MembresiaController::class, 'store'])->name('membresias.store');
+    Route::get('/admin/membresias/{membresia}/edit', [MembresiaController::class, 'edit'])->name('membresias.edit');
+    Route::put('/admin/membresias/{membresia}', [MembresiaController::class, 'update'])->name('membresias.update');
+    Route::delete('/admin/membresias/{membresia}', [MembresiaController::class, 'destroy'])->name('membresias.destroy');
+    Route::patch('/admin/membresias/{membresia}/activate', [MembresiaController::class, 'activate'])
+        ->name('membresias.activate');
 });
 
 // Rutas protegidas por rol - Cliente
