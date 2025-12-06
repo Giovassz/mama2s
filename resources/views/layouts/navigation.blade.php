@@ -55,6 +55,12 @@
                                 {{ __('Perfil') }}
                             </x-dropdown-link>
 
+                            @if(Auth::user()->isCliente())
+                                <x-dropdown-link :href="route('clientes.mi-perfil')">
+                                    {{ __('Mi Perfil de Cliente') }}
+                                </x-dropdown-link>
+                            @endif
+
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -129,6 +135,12 @@
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
+
+                    @if(Auth::user()->isCliente())
+                        <x-responsive-nav-link :href="route('clientes.mi-perfil')">
+                            {{ __('Mi Perfil de Cliente') }}
+                        </x-responsive-nav-link>
+                    @endif
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">

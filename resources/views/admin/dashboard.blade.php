@@ -36,11 +36,11 @@
             <div class="mt-8 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Acciones Rápidas</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a href="#" class="block p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 transition-colors">
-                        <h3 class="font-semibold text-gray-900 mb-2">Gestionar Usuarios</h3>
-                        <p class="text-sm text-gray-600">Administrar miembros y roles</p>
+                    <a href="{{ route('clientes.index') }}" class="block p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 transition-colors">
+                        <h3 class="font-semibold text-gray-900 mb-2">Gestionar Clientes</h3>
+                        <p class="text-sm text-gray-600">Administrar clientes y sus membresías</p>
                     </a>
-                    <a href="#" class="block p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 transition-colors">
+                    <a href="{{ route('membresias.index') }}" class="block p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 transition-colors">
                         <h3 class="font-semibold text-gray-900 mb-2">Gestionar Membresías</h3>
                         <p class="text-sm text-gray-600">Ver y editar planes</p>
                     </a>

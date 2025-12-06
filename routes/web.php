@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,16 @@ Route::middleware(['auth', 'role:admin,recepcionista'])->group(function () {
     Route::delete('/admin/membresias/{membresia}', [MembresiaController::class, 'destroy'])->name('membresias.destroy');
     Route::patch('/admin/membresias/{membresia}/activate', [MembresiaController::class, 'activate'])
         ->name('membresias.activate');
+
+    // Rutas de Clientes - Solo Admin y Recepcionista pueden gestionar
+    Route::get('/admin/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+    Route::get('/admin/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+    Route::post('/admin/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+    Route::get('/admin/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+    Route::put('/admin/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+    Route::delete('/admin/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+    Route::patch('/admin/clientes/{cliente}/activate', [ClienteController::class, 'activate'])
+        ->name('clientes.activate');
 });
 
 // Rutas protegidas por rol - Cliente
@@ -59,6 +70,9 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::get('/cliente', function () {
         return view('cliente.dashboard');
     })->name('cliente.dashboard');
+    
+    // Vista de perfil del cliente autenticado
+    Route::get('/mi-perfil', [ClienteController::class, 'miPerfil'])->name('clientes.mi-perfil');
 });
 
 require __DIR__.'/auth.php';

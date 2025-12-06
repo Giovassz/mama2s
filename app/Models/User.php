@@ -86,4 +86,12 @@ class User extends Authenticatable
     {
         return $this->hasRole('cliente');
     }
+
+    /**
+     * Get the cliente record associated with the user.
+     */
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class);
+    }
 }

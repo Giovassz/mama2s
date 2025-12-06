@@ -56,9 +56,14 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-4">Mi Perfil de Cliente</h2>
                     <p class="text-gray-600 mb-4">Gestiona tu membresía y consulta tu información.</p>
-                    <a href="{{ route('cliente.dashboard') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-gray-900 px-6 py-2 rounded-md font-semibold transition-colors">
-                        Ver Mi Perfil
-                    </a>
+                    <div class="flex space-x-4">
+                        <a href="{{ route('clientes.mi-perfil') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-gray-900 px-6 py-2 rounded-md font-semibold transition-colors">
+                            Ver Mi Perfil Completo
+                        </a>
+                        <a href="{{ route('membresias') }}" class="inline-block border border-orange-500 text-orange-500 hover:bg-orange-50 px-6 py-2 rounded-md font-semibold transition-colors">
+                            Ver Planes Disponibles
+                        </a>
+                    </div>
                 </div>
             @endif
         </div>

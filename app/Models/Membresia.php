@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Membresia extends Model
 {
@@ -61,5 +62,13 @@ class Membresia extends Model
             return $meses == 1 ? '1 mes' : "{$meses} meses";
         }
         return "{$this->duracion_dias} días";
+    }
+
+    /**
+     * Get the clientes for the membresia.
+     */
+    public function clientes(): HasMany
+    {
+        return $this->hasMany(Cliente::class);
     }
 }
