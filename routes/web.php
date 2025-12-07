@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MembresiaController;
+use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,10 +13,7 @@ Route::get('/', function () {
 
 // Rutas públicas
 Route::get('/membresias', [MembresiaController::class, 'showPublic'])->name('membresias');
-
-Route::get('/promociones', function () {
-    return view('promociones');
-})->name('promociones');
+Route::get('/promociones', [PromocionController::class, 'showPublic'])->name('promociones');
 
 // Dashboard (requiere autenticación)
 Route::get('/dashboard', function () {
@@ -63,6 +61,16 @@ Route::middleware(['auth', 'role:admin,recepcionista'])->group(function () {
     Route::delete('/admin/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
     Route::patch('/admin/clientes/{cliente}/activate', [ClienteController::class, 'activate'])
         ->name('clientes.activate');
+
+    // Rutas de Promociones - Admin y Recepcionista pueden gestionar
+    Route::get('/admin/promociones', [PromocionController::class, 'index'])->name('promociones.index');
+    Route::get('/admin/promociones/create', [PromocionController::class, 'create'])->name('promociones.create');
+    Route::post('/admin/promociones', [PromocionController::class, 'store'])->name('promociones.store');
+    Route::get('/admin/promociones/{promocione}/edit', [PromocionController::class, 'edit'])->name('promociones.edit');
+    Route::put('/admin/promociones/{promocione}', [PromocionController::class, 'update'])->name('promociones.update');
+    Route::delete('/admin/promociones/{promocione}', [PromocionController::class, 'destroy'])->name('promociones.destroy');
+    Route::patch('/admin/promociones/{promocione}/activate', [PromocionController::class, 'activate'])
+        ->name('promociones.activate');
 });
 
 // Rutas protegidas por rol - Cliente
