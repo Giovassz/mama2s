@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreClienteRequest extends FormRequest
 {
@@ -22,10 +23,35 @@ class StoreClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,id', 'unique:clientes,user_id'],
+            'user_id' => [
+                'nullable',
+                'exists:users,id',
+                Rule::unique('clientes', 'user_id'),
+                function ($attribute, $value, $fail) {
+                    if ($value) {
+                        $user = \App\Models\User::find($value);
+                        if ($user && $user->role && $user->role->slug !== 'cliente') {
+                            $fail('El usuario seleccionado no tiene rol de cliente.');
+                        }
+                    }
+                },
+            ],
             'nombre' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:clientes,email'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                'unique:clientes,email',
+                function ($attribute, $value, $fail) {
+                    // Si no hay user_id, verificar que el email no esté registrado como usuario
+                    if (!$this->input('user_id')) {
+                        if (\App\Models\User::where('email', $value)->exists()) {
+                            $fail('Este email ya está registrado como usuario. Por favor seleccione el usuario de la lista.');
+                        }
+                    }
+                },
+            ],
             'telefono' => ['nullable', 'string', 'max:20'],
             'fecha_registro' => ['required', 'date', 'before_or_equal:today'],
             'membresia_id' => ['nullable', 'exists:membresias,id'],
@@ -44,7 +70,6 @@ class StoreClienteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => 'El usuario es obligatorio.',
             'user_id.exists' => 'El usuario seleccionado no existe.',
             'user_id.unique' => 'Este usuario ya tiene un perfil de cliente.',
             'nombre.required' => 'El nombre es obligatorio.',

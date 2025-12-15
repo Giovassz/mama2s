@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             MembresiaSeeder::class,
             PromocionSeeder::class,
+            ClienteSeeder::class,
         ]);
     }
 }

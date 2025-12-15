@@ -21,7 +21,7 @@
                                    name="titulo" 
                                    id="titulo" 
                                    value="{{ old('titulo', $promocion->titulo) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('titulo') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('titulo') border-red-500 @enderror"
                                    required>
                             @error('titulo')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -36,7 +36,7 @@
                             <textarea name="descripcion" 
                                       id="descripcion" 
                                       rows="3"
-                                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('descripcion') border-red-500 @enderror">{{ old('descripcion', $promocion->descripcion) }}</textarea>
+                                      class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('descripcion') border-red-500 @enderror">{{ old('descripcion', $promocion->descripcion) }}</textarea>
                             @error('descripcion')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -49,7 +49,7 @@
                             </label>
                             <select name="tipo_descuento" 
                                     id="tipo_descuento" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('tipo_descuento') border-red-500 @enderror"
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('tipo_descuento') border-red-500 @enderror"
                                     required
                                     onchange="toggleDescuentoFields()">
                                 <option value="porcentaje" {{ old('tipo_descuento', $promocion->tipo_descuento) === 'porcentaje' ? 'selected' : '' }}>Porcentaje (%)</option>
@@ -73,7 +73,7 @@
                                        min="0"
                                        max="100"
                                        value="{{ old('descuento_porcentaje', $promocion->descuento_porcentaje) }}"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('descuento_porcentaje') border-red-500 @enderror">
+                                       class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('descuento_porcentaje') border-red-500 @enderror">
                                 <span class="absolute right-3 top-2 text-gray-500">%</span>
                             </div>
                             @error('descuento_porcentaje')
@@ -94,7 +94,7 @@
                                        step="0.01"
                                        min="0"
                                        value="{{ old('monto_descuento', $promocion->monto_descuento) }}"
-                                       class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('monto_descuento') border-red-500 @enderror">
+                                       class="w-full pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('monto_descuento') border-red-500 @enderror">
                             </div>
                             @error('monto_descuento')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -110,7 +110,7 @@
                                    name="fecha_inicio" 
                                    id="fecha_inicio" 
                                    value="{{ old('fecha_inicio', $promocion->fecha_inicio->format('Y-m-d')) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_inicio') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_inicio') border-red-500 @enderror"
                                    required>
                             @error('fecha_inicio')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -126,7 +126,7 @@
                                    name="fecha_fin" 
                                    id="fecha_fin" 
                                    value="{{ old('fecha_fin', $promocion->fecha_fin->format('Y-m-d')) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_fin') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_fin') border-red-500 @enderror"
                                    required>
                             @error('fecha_fin')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -140,7 +140,7 @@
                             </label>
                             <select name="membresia_id" 
                                     id="membresia_id" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
                                 <option value="">Todas las membresías (promoción general)</option>
                                 @foreach($membresias as $membresia)
                                     <option value="{{ $membresia->id }}" {{ old('membresia_id', $promocion->membresia_id) == $membresia->id ? 'selected' : '' }}>

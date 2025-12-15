@@ -33,7 +33,7 @@
                                    name="nombre" 
                                    id="nombre" 
                                    value="{{ old('nombre', $cliente->nombre) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
                                    required>
                             @error('nombre')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -49,7 +49,7 @@
                                    name="apellido" 
                                    id="apellido" 
                                    value="{{ old('apellido', $cliente->apellido) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('apellido') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('apellido') border-red-500 @enderror"
                                    required>
                             @error('apellido')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -65,7 +65,7 @@
                                    name="email" 
                                    id="email" 
                                    value="{{ old('email', $cliente->email) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('email') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('email') border-red-500 @enderror"
                                    required>
                             @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -81,7 +81,7 @@
                                    name="telefono" 
                                    id="telefono" 
                                    value="{{ old('telefono', $cliente->telefono) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('telefono') border-red-500 @enderror">
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('telefono') border-red-500 @enderror">
                             @error('telefono')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -97,7 +97,7 @@
                                    id="fecha_registro" 
                                    value="{{ old('fecha_registro', $cliente->fecha_registro->format('Y-m-d')) }}"
                                    max="{{ date('Y-m-d') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_registro') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_registro') border-red-500 @enderror"
                                    required>
                             @error('fecha_registro')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -114,7 +114,7 @@
                                    id="fecha_nacimiento" 
                                    value="{{ old('fecha_nacimiento', $cliente->fecha_nacimiento ? $cliente->fecha_nacimiento->format('Y-m-d') : '') }}"
                                    max="{{ date('Y-m-d', strtotime('-1 day')) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_nacimiento') border-red-500 @enderror">
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_nacimiento') border-red-500 @enderror">
                             @error('fecha_nacimiento')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -127,7 +127,7 @@
                             </label>
                             <select name="genero" 
                                     id="genero" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('genero') border-red-500 @enderror">
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('genero') border-red-500 @enderror">
                                 <option value="">Seleccione</option>
                                 <option value="M" {{ old('genero', $cliente->genero) == 'M' ? 'selected' : '' }}>Masculino</option>
                                 <option value="F" {{ old('genero', $cliente->genero) == 'F' ? 'selected' : '' }}>Femenino</option>
@@ -145,7 +145,7 @@
                             </label>
                             <select name="membresia_id" 
                                     id="membresia_id" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
                                 <option value="">Sin membresía</option>
                                 @foreach($membresias as $membresia)
                                     <option value="{{ $membresia->id }}" {{ old('membresia_id', $cliente->membresia_id) == $membresia->id ? 'selected' : '' }}>
@@ -166,7 +166,7 @@
                             <textarea name="direccion" 
                                       id="direccion" 
                                       rows="2"
-                                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('direccion') border-red-500 @enderror">{{ old('direccion', $cliente->direccion) }}</textarea>
+                                      class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('direccion') border-red-500 @enderror">{{ old('direccion', $cliente->direccion) }}</textarea>
                             @error('direccion')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror

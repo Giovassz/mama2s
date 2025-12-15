@@ -48,6 +48,27 @@ class ClienteController extends Controller
         $data = $request->validated();
         $data['activo'] = $request->has('activo') ? true : false;
 
+        // Si no se proporciona user_id, crear un nuevo usuario automáticamente
+        if (empty($data['user_id'])) {
+            $clienteRole = \App\Models\Role::where('slug', 'cliente')->first();
+            
+            if (!$clienteRole) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'No se pudo encontrar el rol de cliente. Contacte al administrador.');
+            }
+
+            // Crear el usuario con el email y nombre completo
+            $user = User::create([
+                'name' => $data['nombre'] . ' ' . $data['apellido'],
+                'email' => $data['email'],
+                'password' => \Illuminate\Support\Facades\Hash::make('password'), // Contraseña temporal
+                'role_id' => $clienteRole->id,
+            ]);
+
+            $data['user_id'] = $user->id;
+        }
+
         Cliente::create($data);
 
         return redirect()->route('clientes.index')

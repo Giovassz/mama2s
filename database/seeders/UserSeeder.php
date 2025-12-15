@@ -19,28 +19,53 @@ class UserSeeder extends Seeder
         $recepcionistaRole = Role::where('slug', 'recepcionista')->first();
         $clienteRole = Role::where('slug', 'cliente')->first();
 
-        // Admin
-        User::create([
-            'name' => 'Administrador',
-            'email' => 'admin@mama2s.com',
-            'password' => Hash::make('password'),
-            'role_id' => $adminRole->id,
-        ]);
+        // Admin (solo uno, el que ya existe - no lo recreamos)
+        // Si no existe, lo creamos; si ya existe, lo dejamos tal cual
+        if (!User::where('email', 'admin@mama2s.com')->exists()) {
+            User::create([
+                'name' => 'Administrador',
+                'email' => 'admin@mama2s.com',
+                'password' => Hash::make('password'),
+                'role_id' => $adminRole->id,
+            ]);
+        }
 
-        // Recepcionista
-        User::create([
-            'name' => 'Recepcionista',
-            'email' => 'recepcionista@mama2s.com',
-            'password' => Hash::make('password'),
-            'role_id' => $recepcionistaRole->id,
-        ]);
+        // Recepcionistas (2 usuarios) - usamos updateOrCreate para evitar duplicados
+        User::updateOrCreate(
+            ['email' => 'recepcionista1@mama2s.com'],
+            [
+                'name' => 'Recepcionista 1',
+                'password' => Hash::make('password'),
+                'role_id' => $recepcionistaRole->id,
+            ]
+        );
 
-        // Cliente
-        User::create([
-            'name' => 'Cliente',
-            'email' => 'cliente@mama2s.com',
-            'password' => Hash::make('password'),
-            'role_id' => $clienteRole->id,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'recepcionista2@mama2s.com'],
+            [
+                'name' => 'Recepcionista 2',
+                'password' => Hash::make('password'),
+                'role_id' => $recepcionistaRole->id,
+            ]
+        );
+
+        // Clientes (2 usuarios) - usamos updateOrCreate para evitar duplicados
+        User::updateOrCreate(
+            ['email' => 'cliente1@mama2s.com'],
+            [
+                'name' => 'Cliente 1',
+                'password' => Hash::make('password'),
+                'role_id' => $clienteRole->id,
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'cliente2@mama2s.com'],
+            [
+                'name' => 'Cliente 2',
+                'password' => Hash::make('password'),
+                'role_id' => $clienteRole->id,
+            ]
+        );
     }
 }

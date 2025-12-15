@@ -11,28 +11,25 @@
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Usuario -->
+                        <!-- Usuario (Opcional) -->
                         <div class="md:col-span-2">
                             <label for="user_id" class="block text-sm font-medium text-gray-700 mb-2">
-                                Usuario <span class="text-red-500">*</span>
+                                Usuario Existente (Opcional)
                             </label>
                             <select name="user_id" 
                                     id="user_id" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('user_id') border-red-500 @enderror"
-                                    required>
-                                <option value="">Seleccione un usuario</option>
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('user_id') border-red-500 @enderror">
+                                <option value="">Crear nuevo usuario automáticamente</option>
                                 @foreach($usuariosDisponibles as $usuario)
                                     <option value="{{ $usuario->id }}" {{ old('user_id') == $usuario->id ? 'selected' : '' }}>
                                         {{ $usuario->name }} ({{ $usuario->email }})
                                     </option>
                                 @endforeach
                             </select>
+                            <p class="mt-1 text-xs text-gray-500">Si no selecciona un usuario, se creará uno automáticamente con el email ingresado.</p>
                             @error('user_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                            @if($usuariosDisponibles->isEmpty())
-                                <p class="mt-1 text-sm text-yellow-600">No hay usuarios disponibles. Todos los usuarios con rol "cliente" ya tienen perfil.</p>
-                            @endif
                         </div>
 
                         <!-- Nombre -->
@@ -44,7 +41,7 @@
                                    name="nombre" 
                                    id="nombre" 
                                    value="{{ old('nombre') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
                                    required>
                             @error('nombre')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -60,7 +57,7 @@
                                    name="apellido" 
                                    id="apellido" 
                                    value="{{ old('apellido') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('apellido') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('apellido') border-red-500 @enderror"
                                    required>
                             @error('apellido')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -76,7 +73,7 @@
                                    name="email" 
                                    id="email" 
                                    value="{{ old('email') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('email') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('email') border-red-500 @enderror"
                                    required>
                             @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -92,7 +89,7 @@
                                    name="telefono" 
                                    id="telefono" 
                                    value="{{ old('telefono') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('telefono') border-red-500 @enderror">
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('telefono') border-red-500 @enderror">
                             @error('telefono')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -108,7 +105,7 @@
                                    id="fecha_registro" 
                                    value="{{ old('fecha_registro', date('Y-m-d')) }}"
                                    max="{{ date('Y-m-d') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_registro') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_registro') border-red-500 @enderror"
                                    required>
                             @error('fecha_registro')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -125,7 +122,7 @@
                                    id="fecha_nacimiento" 
                                    value="{{ old('fecha_nacimiento') }}"
                                    max="{{ date('Y-m-d', strtotime('-1 day')) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('fecha_nacimiento') border-red-500 @enderror">
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('fecha_nacimiento') border-red-500 @enderror">
                             @error('fecha_nacimiento')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -138,7 +135,7 @@
                             </label>
                             <select name="genero" 
                                     id="genero" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('genero') border-red-500 @enderror">
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('genero') border-red-500 @enderror">
                                 <option value="">Seleccione</option>
                                 <option value="M" {{ old('genero') == 'M' ? 'selected' : '' }}>Masculino</option>
                                 <option value="F" {{ old('genero') == 'F' ? 'selected' : '' }}>Femenino</option>
@@ -156,7 +153,7 @@
                             </label>
                             <select name="membresia_id" 
                                     id="membresia_id" 
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
+                                    class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('membresia_id') border-red-500 @enderror">
                                 <option value="">Sin membresía</option>
                                 @foreach($membresias as $membresia)
                                     <option value="{{ $membresia->id }}" {{ old('membresia_id') == $membresia->id ? 'selected' : '' }}>
@@ -177,7 +174,7 @@
                             <textarea name="direccion" 
                                       id="direccion" 
                                       rows="2"
-                                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('direccion') border-red-500 @enderror">{{ old('direccion') }}</textarea>
+                                      class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('direccion') border-red-500 @enderror">{{ old('direccion') }}</textarea>
                             @error('direccion')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror

@@ -43,6 +43,17 @@ class PromocionSeeder extends Seeder
                 'activo' => true,
                 'membresia_id' => $planPremium ? $planPremium->id : null,
             ],
+            [
+                'titulo' => 'Plan VIP - Descuento Especial',
+                'descripcion' => 'Obtén el Plan VIP con un descuento del 25% y acceso ilimitado a todas las instalaciones y servicios premium.',
+                'tipo_descuento' => 'porcentaje',
+                'descuento_porcentaje' => 25.00,
+                'monto_descuento' => null,
+                'fecha_inicio' => Carbon::now()->subDays(3),
+                'fecha_fin' => Carbon::now()->addDays(30),
+                'activo' => true,
+                'membresia_id' => $planVIP ? $planVIP->id : null,
+            ],
         ];
 
         foreach ($promociones as $promocion) {

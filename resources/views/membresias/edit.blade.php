@@ -21,7 +21,7 @@
                                    name="nombre" 
                                    id="nombre" 
                                    value="{{ old('nombre', $membresia->nombre) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('nombre') border-red-500 @enderror"
                                    required>
                             @error('nombre')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -36,7 +36,7 @@
                             <textarea name="descripcion" 
                                       id="descripcion" 
                                       rows="3"
-                                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('descripcion') border-red-500 @enderror">{{ old('descripcion', $membresia->descripcion) }}</textarea>
+                                      class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('descripcion') border-red-500 @enderror">{{ old('descripcion', $membresia->descripcion) }}</textarea>
                             @error('descripcion')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -55,7 +55,7 @@
                                        step="0.01"
                                        min="0"
                                        value="{{ old('precio', $membresia->precio) }}"
-                                       class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('precio') border-red-500 @enderror"
+                                       class="w-full pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('precio') border-red-500 @enderror"
                                        required>
                             </div>
                             @error('precio')
@@ -73,7 +73,7 @@
                                    id="duracion_dias" 
                                    min="1"
                                    value="{{ old('duracion_dias', $membresia->duracion_dias) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('duracion_dias') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('duracion_dias') border-red-500 @enderror"
                                    required>
                             @error('duracion_dias')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -90,7 +90,7 @@
                                    id="sesiones_entrenador" 
                                    min="0"
                                    value="{{ old('sesiones_entrenador', $membresia->sesiones_entrenador) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('sesiones_entrenador') border-red-500 @enderror"
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('sesiones_entrenador') border-red-500 @enderror"
                                    required>
                             @error('sesiones_entrenador')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -107,7 +107,7 @@
                                    id="orden" 
                                    min="0"
                                    value="{{ old('orden', $membresia->orden) }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('orden') border-red-500 @enderror">
+                                   class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('orden') border-red-500 @enderror">
                             <p class="mt-1 text-xs text-gray-500">Menor número = aparece primero</p>
                             @error('orden')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -123,7 +123,7 @@
                                       id="caracteristicas" 
                                       rows="4"
                                       placeholder="Ejemplo:&#10;Acceso a todas las áreas&#10;Sin límite de visitas&#10;App móvil incluida"
-                                      class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500 @error('caracteristicas') border-red-500 @enderror">{{ old('caracteristicas', is_array($membresia->caracteristicas) ? implode("\n", $membresia->caracteristicas) : '') }}</textarea>
+                                      class="w-full px-4 py-2 bg-white border border-gray-300 rounded-md text-black focus:ring-orange-500 focus:border-orange-500 @error('caracteristicas') border-red-500 @enderror">{{ old('caracteristicas', is_array($membresia->caracteristicas) ? implode("\n", $membresia->caracteristicas) : '') }}</textarea>
                             <p class="mt-1 text-xs text-gray-500">Escribe cada característica en una línea separada</p>
                             @error('caracteristicas')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
