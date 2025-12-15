@@ -1,47 +1,79 @@
-<x-app-layout title="Membresías - Mama2s Gym">
-    <!-- Hero Section -->
-    <section class="relative bg-[#0B0B0B] text-white overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-[#1E1E1E] to-[#0B0B0B]"></div>
-        <div class="absolute inset-0 bg-black/60"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40">
-            <div class="text-center fade-in">
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
-                    Nuestros <span class="text-[#FFC107]">Planes</span>
-                </h1>
-                <p class="text-2xl md:text-3xl mb-8 text-[#FFC107] font-semibold">
-                    Elige el plan perfecto para ti
-                </p>
-                <p class="text-lg md:text-xl mb-12 text-[#B0B0B0] max-w-3xl mx-auto leading-relaxed">
-                    Membresías diseñadas para adaptarse a tus objetivos y estilo de vida. Encuentra el plan ideal y comienza tu transformación hoy.
-                </p>
-            </div>
-        </div>
-        
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
-                 alt="Gimnasio" 
-                 class="w-full h-full object-cover opacity-20">
-        </div>
-    </section>
-
-    <!-- Membresías Section -->
-    <section class="py-20 bg-[#0B0B0B]">
+<x-app-layout title="Suscripciones - Mama2s Gym">
+    <div class="bg-[#0B0B0B] py-12 min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">Suscripciones</h1>
+                <p class="text-xl text-[#B0B0B0]">Elige el plan que mejor se adapte a tus necesidades</p>
+            </div>
+
+            <!-- Mensajes de éxito/error -->
+            @if(session('success'))
+                <div class="mb-6 bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="mb-6 bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <!-- Información de suscripción actual -->
+            @if($cliente && $cliente->membresia_id && $cliente->subscription_status == 'active')
+                <div class="mb-8 bg-[#1E1E1E] border {{ $cliente->activo ? 'border-[#FFC107]/30' : 'border-red-500/30' }} rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            @if($cliente->activo)
+                                <h3 class="text-xl font-bold text-white mb-2">Suscripción Activa</h3>
+                            @else
+                                <h3 class="text-xl font-bold text-red-400 mb-2">Suscripción Inactiva</h3>
+                                <p class="text-red-300 text-sm mb-2">Tu cuenta está inactiva, por lo tanto tu membresía no está activa.</p>
+                            @endif
+                            <p class="text-[#B0B0B0]">
+                                Plan: <span class="{{ $cliente->activo ? 'text-[#FFC107]' : 'text-gray-500' }} font-semibold">{{ $cliente->membresia->nombre }}</span>
+                            </p>
+                            @if($cliente->subscription_ends_at)
+                                <p class="text-[#B0B0B0] text-sm mt-1">
+                                    Renovación: {{ $cliente->subscription_ends_at->format('d/m/Y') }}
+                                </p>
+                            @endif
+                        </div>
+                        @if($cliente->activo)
+                            <form action="{{ route('subscriptions.cancel') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas cancelar tu suscripción?');">
+                                @csrf
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                                    Cancelar Suscripción
+                                </button>
+                            </form>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
+            <!-- Grid de membresías -->
             @if($membresias->count() > 0)
-                <!-- Grid de 3 columnas con cards verticales -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     @foreach($membresias as $index => $membresia)
                         @php
-                            $isPopular = $index == 1; // El segundo plan es el más popular
+                            $isPopular = $index == 1;
+                            $isCurrentPlan = $cliente && $cliente->membresia_id == $membresia->id && $cliente->subscription_status == 'active' && $cliente->activo;
                         @endphp
                         
-                        <!-- Card vertical tipo label profesional -->
-                        <div class="card-hover {{ $isPopular ? 'border-2 border-[#FFC107]/50 ring-2 ring-[#FFC107]/20' : '' }} relative slide-up" style="animation-delay: {{ $index * 0.1 }}s">
+                        <div class="bg-[#1E1E1E] rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow {{ $isPopular ? 'border-2 border-[#FFC107]/50 ring-2 ring-[#FFC107]/20' : '' }} relative">
                             @if($isPopular)
                                 <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                                    <span class="badge-gold bg-[#FFC107] text-black px-4 py-1 shadow-lg">
+                                    <span class="bg-[#FFC107] text-black px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                                         ⭐ MÁS POPULAR
+                                    </span>
+                                </div>
+                            @endif
+
+                            @if($isCurrentPlan)
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Plan Actual
                                     </span>
                                 </div>
                             @endif
@@ -119,44 +151,46 @@
                                 </ul>
 
                                 <!-- Botón CTA -->
-                                @auth
-                                    @if(auth()->user()->isCliente())
-                                        <a href="{{ route('subscriptions.index') }}" class="btn-primary w-full text-center py-4">
-                                            Suscribirse Ahora
-                                        </a>
-                                    @else
-                                        <a href="{{ route('register') }}" class="btn-primary w-full text-center py-4">
-                                            Elegir {{ $membresia->nombre }}
-                                        </a>
-                                    @endif
+                                @if($isCurrentPlan)
+                                    <button disabled class="w-full bg-gray-600 text-gray-400 text-center py-3 rounded-md font-semibold cursor-not-allowed">
+                                        Plan Actual
+                                    </button>
                                 @else
-                                    <a href="{{ route('register') }}" class="btn-primary w-full text-center py-4">
-                                        Elegir {{ $membresia->nombre }}
-                                    </a>
-                                @endauth
+                                    <form action="{{ route('subscriptions.checkout', $membresia) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="w-full bg-[#FFC107] hover:bg-[#FFD54F] text-black text-center py-3 rounded-md font-semibold transition-colors">
+                                            Suscribirse Ahora
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     @endforeach
                 </div>
 
-                <!-- Sección adicional -->
-                <div class="text-center">
-                    <div class="card slide-up" style="animation-delay: 0.4s">
-                        <h2 class="text-3xl font-bold text-white mb-4">¿Necesitas más información?</h2>
-                        <p class="text-[#B0B0B0] mb-6 text-lg">Consulta nuestras promociones especiales o contáctanos</p>
-                        <div class="flex flex-wrap justify-center gap-4">
-                            <a href="{{ route('promociones') }}" class="btn-primary">
-                                Ver Promociones
-                            </a>
-                            <a href="{{ route('home') }}" class="btn-secondary">
-                                Volver al Inicio
-                            </a>
+                <!-- Información de modo demo -->
+                <div class="mt-12 bg-[#1E1E1E] border border-[#FFC107]/30 rounded-lg p-6">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-[#FFC107] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                        </svg>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white mb-2">Modo Demo - Stripe Test</h3>
+                            <p class="text-[#B0B0B0] text-sm mb-2">
+                                Estás usando Stripe en modo de prueba. Puedes usar las siguientes tarjetas de prueba:
+                            </p>
+                            <ul class="text-[#B0B0B0] text-sm space-y-1">
+                                <li>• <strong class="text-white">Tarjeta exitosa:</strong> 4242 4242 4242 4242</li>
+                                <li>• <strong class="text-white">Fecha:</strong> Cualquier fecha futura (ej: 12/25)</li>
+                                <li>• <strong class="text-white">CVC:</strong> Cualquier 3 dígitos (ej: 123)</li>
+                                <li>• <strong class="text-white">Código postal:</strong> Cualquier 5 dígitos (ej: 12345)</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             @else
                 <div class="text-center py-16">
-                    <div class="card slide-up">
+                    <div class="bg-[#1E1E1E] rounded-lg p-8">
                         <svg class="mx-auto h-16 w-16 text-[#888888] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -166,5 +200,6 @@
                 </div>
             @endif
         </div>
-    </section>
+    </div>
 </x-app-layout>
+

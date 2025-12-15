@@ -123,6 +123,24 @@ class ClienteController extends Controller
     }
 
     /**
+     * Mostrar el dashboard del cliente autenticado
+     */
+    public function dashboard(): View
+    {
+        $user = auth()->user();
+        $cliente = $user->cliente;
+
+        if (!$cliente) {
+            abort(404, 'Perfil de cliente no encontrado');
+        }
+
+        // Cargar relaciones
+        $cliente->load('membresia', 'user');
+
+        return view('cliente.dashboard', compact('cliente'));
+    }
+
+    /**
      * Mostrar el perfil del cliente autenticado
      */
     public function miPerfil(): View

@@ -46,7 +46,7 @@
                                     <th class="px-6 py-4 text-left text-xs font-semibold text-[#B0B0B0] uppercase tracking-wider">Email</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold text-[#B0B0B0] uppercase tracking-wider">Rol Actual</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold text-[#B0B0B0] uppercase tracking-wider">Cambiar Rol</th>
-                                    <th class="px-6 py-4 text-left text-xs font-semibold text-[#B0B0B0] uppercase tracking-wider">Acción</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-[#B0B0B0] uppercase tracking-wider">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-[#1E1E1E] divide-y divide-[#2A2A2A]">
@@ -98,15 +98,24 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                            @if($user->role)
-                                                @if($user->role->slug === 'admin')
-                                                    <span class="text-[#EF4444] font-medium">Administrador</span>
-                                                @elseif($user->role->slug === 'recepcionista')
-                                                    <span class="text-[#3B82F6] font-medium">Recepcionista</span>
+                                            <div class="flex items-center gap-3">
+                                                @if($user->id !== auth()->id())
+                                                    <form method="POST" action="{{ route('users.destroy', $user) }}" 
+                                                          onsubmit="return confirm('¿Estás seguro de que deseas eliminar al usuario {{ $user->name }}? Esta acción no se puede deshacer.');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" 
+                                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-md transition-colors">
+                                                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                            </svg>
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <span class="text-[#10B981] font-medium">Cliente</span>
+                                                    <span class="text-[#888888] text-sm italic">Usuario actual</span>
                                                 @endif
-                                            @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

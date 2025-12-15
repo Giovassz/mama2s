@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Rutas de gestión de usuarios - Solo Admin
     Route::get('/admin/usuarios', [UserController::class, 'index'])->name('users.index');
     Route::patch('/admin/usuarios/{user}/rol', [UserController::class, 'updateRole'])->name('users.update-role');
+    Route::delete('/admin/usuarios/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 // Rutas protegidas por rol - Recepcionista
@@ -79,12 +81,16 @@ Route::middleware(['auth', 'role:admin,recepcionista'])->group(function () {
 
 // Rutas protegidas por rol - Cliente
 Route::middleware(['auth', 'role:cliente'])->group(function () {
-    Route::get('/cliente', function () {
-        return view('cliente.dashboard');
-    })->name('cliente.dashboard');
+    Route::get('/cliente', [ClienteController::class, 'dashboard'])->name('cliente.dashboard');
     
     // Vista de perfil del cliente autenticado
     Route::get('/mi-perfil', [ClienteController::class, 'miPerfil'])->name('clientes.mi-perfil');
+    
+    // Rutas de suscripciones y pagos
+    Route::get('/suscripciones', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+    Route::post('/suscripciones/{membresia}/checkout', [SubscriptionController::class, 'checkout'])->name('subscriptions.checkout');
+    Route::get('/suscripciones/success', [SubscriptionController::class, 'success'])->name('subscriptions.success');
+    Route::post('/suscripciones/cancelar', [SubscriptionController::class, 'cancel'])->name('subscriptions.cancel');
 });
 
 require __DIR__.'/auth.php';

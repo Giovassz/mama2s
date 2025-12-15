@@ -21,12 +21,18 @@ class Cliente extends Model
         'direccion',
         'fecha_nacimiento',
         'genero',
+        'stripe_customer_id',
+        'stripe_subscription_id',
+        'stripe_payment_method_id',
+        'subscription_ends_at',
+        'subscription_status',
     ];
 
     protected $casts = [
         'fecha_registro' => 'date',
         'fecha_nacimiento' => 'date',
         'activo' => 'boolean',
+        'subscription_ends_at' => 'datetime',
     ];
 
     /**

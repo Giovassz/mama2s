@@ -36,4 +36,32 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success', "Rol de {$user->name} actualizado exitosamente.");
     }
+
+    /**
+     * Elimina un usuario del sistema
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        // No permitir que un administrador se elimine a sí mismo
+        if ($user->id === auth()->id()) {
+            return redirect()->route('users.index')
+                ->with('error', 'No puedes eliminar tu propia cuenta.');
+        }
+
+        // No permitir eliminar el último administrador
+        $adminCount = User::whereHas('role', function($query) {
+            $query->where('slug', 'admin');
+        })->count();
+
+        if ($user->isAdmin() && $adminCount <= 1) {
+            return redirect()->route('users.index')
+                ->with('error', 'No se puede eliminar el último administrador del sistema.');
+        }
+
+        $userName = $user->name;
+        $user->delete();
+
+        return redirect()->route('users.index')
+            ->with('success', "Usuario {$userName} eliminado exitosamente.");
+    }
 }

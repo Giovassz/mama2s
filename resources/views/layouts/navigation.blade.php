@@ -86,6 +86,9 @@
                             @endif
 
                             @if(Auth::user()->isCliente())
+                                <x-dropdown-link :href="route('subscriptions.index')">
+                                    {{ __('Suscripciones') }}
+                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('clientes.mi-perfil')">
                                     {{ __('Mi Perfil de Cliente') }}
                                 </x-dropdown-link>
@@ -176,6 +179,9 @@
                     @endif
 
                     @if(Auth::user()->isCliente())
+                        <x-responsive-nav-link :href="route('subscriptions.index')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] transition-colors">
+                            {{ __('Suscripciones') }}
+                        </x-responsive-nav-link>
                         <x-responsive-nav-link :href="route('clientes.mi-perfil')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] transition-colors">
                             {{ __('Mi Perfil de Cliente') }}
                         </x-responsive-nav-link>
