@@ -1,3 +1,136 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --color-black: #0B0B0B;
+        --color-black-secondary: #111111;
+        --color-dark-gray: #1E1E1E;
+        --color-dark-gray-secondary: #2A2A2A;
+        --color-gold: #FFC107;
+        --color-gold-secondary: #FFB703;
+        --color-white: #FFFFFF;
+        --color-white-secondary: #F5F5F5;
+        --color-text-primary: #FFFFFF;
+        --color-text-secondary: #B0B0B0;
+        --color-text-tertiary: #888888;
+    }
+
+    html {
+        background-color: #0B0B0B;
+        color: #FFFFFF;
+    }
+
+    body {
+        @apply bg-[#0B0B0B] text-white;
+        font-family: 'Inter', sans-serif;
+        color: #FFFFFF;
+        background-color: #0B0B0B;
+    }
+
+    /* Asegurar visibilidad de textos por defecto */
+    h1, h2, h3, h4, h5, h6 {
+        color: #FFFFFF;
+    }
+
+    p, span, label, td, th, div, a {
+        color: inherit;
+    }
+
+    * {
+        @apply transition-all duration-200;
+    }
+}
+
+@layer components {
+    /* Botones estilo Smart Fit */
+    .btn-primary {
+        @apply bg-[#FFC107] text-black font-semibold px-6 py-3 rounded-xl hover:bg-[#FFB703] hover:shadow-lg hover:shadow-[#FFC107]/20 active:scale-95 transition-all duration-300;
+    }
+
+    .btn-secondary {
+        @apply bg-transparent border-2 border-[#FFC107] text-[#FFC107] font-semibold px-6 py-3 rounded-xl hover:bg-[#FFC107] hover:text-black active:scale-95 transition-all duration-300;
+    }
+
+    .btn-ghost {
+        @apply bg-transparent text-white font-medium px-4 py-2 rounded-lg hover:bg-[#1E1E1E] transition-all duration-200;
+    }
+
+    /* Cards estilo Smart Fit */
+    .card {
+        @apply bg-[#1E1E1E] rounded-2xl p-6 shadow-lg hover:shadow-xl hover:shadow-black/50 transition-all duration-300 border border-[#2A2A2A];
+    }
+
+    .card-hover {
+        @apply card hover:-translate-y-1 hover:border-[#FFC107]/30;
+    }
+
+    /* Inputs estilo Smart Fit */
+    .input-field {
+        @apply w-full px-4 py-3 bg-[#1E1E1E] border border-[#2A2A2A] rounded-xl text-white placeholder-[#888888] focus:outline-none focus:border-[#FFC107] focus:ring-2 focus:ring-[#FFC107]/20 transition-all duration-200;
+    }
+
+    textarea.input-field {
+        @apply resize-y;
+    }
+
+    select.input-field {
+        @apply cursor-pointer;
+    }
+
+    select.input-field option {
+        @apply bg-[#1E1E1E] text-white;
+    }
+
+    /* Badges */
+    .badge-gold {
+        @apply bg-[#FFC107] text-black text-xs font-semibold px-3 py-1 rounded-full;
+    }
+
+    .badge-dark {
+        @apply bg-[#2A2A2A] text-white text-xs font-medium px-3 py-1 rounded-full;
+    }
+
+    /* Textos */
+    .text-primary {
+        @apply text-white;
+    }
+
+    .text-secondary {
+        @apply text-[#B0B0B0];
+    }
+
+    .text-tertiary {
+        @apply text-[#888888];
+    }
+
+    /* Animaciones */
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    .slide-up {
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

@@ -12,7 +12,13 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', 'Poppins', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                'dark-black': '#0B0B0B',
+                'dark-gray': '#1E1E1E',
+                'gold': '#FFC107',
+                'gold-secondary': '#FFB703',
             },
         },
     },
