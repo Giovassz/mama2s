@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\PromocionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Página de inicio (pública)
@@ -29,9 +31,11 @@ Route::middleware('auth')->group(function () {
 
 // Rutas protegidas por rol - Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Rutas de gestión de usuarios - Solo Admin
+    Route::get('/admin/usuarios', [UserController::class, 'index'])->name('users.index');
+    Route::patch('/admin/usuarios/{user}/rol', [UserController::class, 'updateRole'])->name('users.update-role');
 });
 
 // Rutas protegidas por rol - Recepcionista

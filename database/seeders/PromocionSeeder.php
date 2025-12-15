@@ -23,7 +23,7 @@ class PromocionSeeder extends Seeder
         $promociones = [
             [
                 'titulo' => 'Descuento de Bienvenida',
-                'descripcion' => 'Oferta especial para nuevos miembros. Ahorra en tu primera membresía.',
+                'descripcion' => 'Oferta especial para nuevos miembros. Ahorra en tu primera membresía con un 20% de descuento.',
                 'tipo_descuento' => 'porcentaje',
                 'descuento_porcentaje' => 20.00,
                 'monto_descuento' => null,
@@ -34,7 +34,7 @@ class PromocionSeeder extends Seeder
             ],
             [
                 'titulo' => 'Plan Premium con 30% OFF',
-                'descripcion' => 'Oferta exclusiva para el Plan Premium. Incluye entrenador personal y clases grupales.',
+                'descripcion' => 'Oferta exclusiva para el Plan Premium. Incluye entrenador personal y clases grupales con un descuento especial.',
                 'tipo_descuento' => 'porcentaje',
                 'descuento_porcentaje' => 30.00,
                 'monto_descuento' => null,
@@ -42,28 +42,6 @@ class PromocionSeeder extends Seeder
                 'fecha_fin' => Carbon::now()->addDays(20),
                 'activo' => true,
                 'membresia_id' => $planPremium ? $planPremium->id : null,
-            ],
-            [
-                'titulo' => 'Ahorra $15 en Plan Básico',
-                'descripcion' => 'Descuento fijo en el Plan Básico. Perfecto para comenzar tu transformación.',
-                'tipo_descuento' => 'monto',
-                'descuento_porcentaje' => null,
-                'monto_descuento' => 15.00,
-                'fecha_inicio' => Carbon::now()->subDays(3),
-                'fecha_fin' => Carbon::now()->addDays(27),
-                'activo' => true,
-                'membresia_id' => $planBasico ? $planBasico->id : null,
-            ],
-            [
-                'titulo' => 'Black Friday - 40% OFF',
-                'descripcion' => 'Oferta especial Black Friday. Aprovecha el descuento más grande del año.',
-                'tipo_descuento' => 'porcentaje',
-                'descuento_porcentaje' => 40.00,
-                'monto_descuento' => null,
-                'fecha_inicio' => Carbon::now()->addDays(10),
-                'fecha_fin' => Carbon::now()->addDays(17),
-                'activo' => true,
-                'membresia_id' => null, // Aplica a todas las membresías
             ],
         ];
 

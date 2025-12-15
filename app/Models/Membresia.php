@@ -75,7 +75,7 @@ class Membresia extends Model
     /**
      * Get the promociones for the membresia.
      */
-    public function promociones(): HasManyRelation
+    public function promociones(): HasMany
     {
         return $this->hasMany(Promocion::class);
     }
