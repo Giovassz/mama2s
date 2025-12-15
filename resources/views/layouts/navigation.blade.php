@@ -1,17 +1,60 @@
 <nav x-data="{ open: false }" class="bg-[#0B0B0B] border-b border-[#1E1E1E] sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-24">
-            <!-- Logo - Centrado y más grande -->
-            <div class="flex-1 flex justify-center lg:justify-start">
-                <a href="{{ route('home') }}" class="flex items-center space-x-4 group">
-                    <img src="{{ asset('images/logo.png') }}" alt="Mama2s Gym" class="h-16 w-auto brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300">
-                    <span class="text-3xl font-bold text-white group-hover:text-[#FFC107] transition-colors duration-300">Mama2s</span>
-                </a>
+        <div class="flex justify-between items-center h-20">
+            <div class="flex items-center flex-1">
+                <!-- Logo - Solo imagen, sin texto -->
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('home') }}" class="flex items-center group">
+                        <img src="{{ asset('images/logo.png') }}" alt="Mama2s Gym" class="h-14 w-auto brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300">
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden lg:flex lg:items-center lg:ml-12 space-x-1">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')" 
+                        class="relative px-5 py-3 rounded-lg text-white hover:text-[#FFC107] transition-colors duration-300 group">
+                        <span class="relative z-10">Inicio</span>
+                        @if(request()->routeIs('home'))
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107]"></span>
+                        @else
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        @endif
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('membresias') }}" :active="request()->routeIs('membresias')" 
+                        class="relative px-5 py-3 rounded-lg text-white hover:text-[#FFC107] transition-colors duration-300 group">
+                        <span class="relative z-10">Membresías</span>
+                        @if(request()->routeIs('membresias'))
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107]"></span>
+                        @else
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        @endif
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('promociones') }}" :active="request()->routeIs('promociones')" 
+                        class="relative px-5 py-3 rounded-lg text-white hover:text-[#FFC107] transition-colors duration-300 group">
+                        <span class="relative z-10">Promociones</span>
+                        @if(request()->routeIs('promociones'))
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107]"></span>
+                        @else
+                            <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        @endif
+                    </x-nav-link>
+                    @auth
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" 
+                            class="relative px-5 py-3 rounded-lg text-white hover:text-[#FFC107] transition-colors duration-300 group">
+                            <span class="relative z-10">Mi Cuenta</span>
+                            @if(request()->routeIs('dashboard'))
+                                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107]"></span>
+                            @else
+                                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FFC107] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            @endif
+                        </x-nav-link>
+                    @endauth
+                </div>
             </div>
 
-            <!-- Settings Dropdown - Solo en desktop -->
-            <div class="hidden lg:flex lg:items-center">
+            <!-- Settings Dropdown -->
+            <div class="hidden lg:flex lg:items-center lg:ml-6">
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -31,10 +74,6 @@
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Perfil') }}
-                            </x-dropdown-link>
-
-                            <x-dropdown-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
                             </x-dropdown-link>
 
                             @if(Auth::user()->isAdmin())
@@ -76,7 +115,7 @@
                 @endauth
             </div>
 
-            <!-- Hamburger - Mobile -->
+            <!-- Hamburger -->
             <div class="flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-lg text-white hover:bg-[#1E1E1E] hover:text-[#FFC107] focus:outline-none transition-all duration-300">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -90,6 +129,23 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden bg-[#1E1E1E] border-t border-[#2A2A2A] fade-in">
+        <div class="pt-4 pb-4 space-y-2 px-4">
+            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] hover:text-[#FFC107] transition-colors">
+                Inicio
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('membresias') }}" :active="request()->routeIs('membresias')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] hover:text-[#FFC107] transition-colors">
+                Membresías
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('promociones') }}" :active="request()->routeIs('promociones')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] hover:text-[#FFC107] transition-colors">
+                Promociones
+            </x-responsive-nav-link>
+            @auth
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] hover:text-[#FFC107] transition-colors">
+                    Mi Cuenta
+                </x-responsive-nav-link>
+            @endauth
+        </div>
+
         <!-- Responsive Settings Options -->
         @auth
             <div class="pt-4 pb-4 border-t border-[#2A2A2A] px-4">
@@ -106,10 +162,6 @@
                 </div>
 
                 <div class="space-y-2">
-                    <x-responsive-nav-link :href="route('dashboard')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] transition-colors">
-                        {{ __('Dashboard') }}
-                    </x-responsive-nav-link>
-
                     <x-responsive-nav-link :href="route('profile.edit')" class="px-4 py-3 rounded-lg hover:bg-[#2A2A2A] transition-colors">
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
